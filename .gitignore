@@ -1,0 +1,6 @@
+/*
+!snap
+!.gitignore
+snap/*
+!snap/snapcraft.yaml
+

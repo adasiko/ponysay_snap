@@ -1,0 +1,37 @@
+name: ponysay
+version: '3.0.3'
+summary: cowsay reimplemention for ponies
+description: |
+  Ponysay displays an image of a My Little Pony pony saying a message provided by the user 
+  in a terminal, or a quote from the show My Little Pony: Friendship is Magic (MLP:FiM). 
+  Historically ponysay was a wrapper for cowsay, but has since version 2.1 become an 
+  independent reimplementation of cowsay.
+
+grade: stable
+confinement: strict
+
+apps:
+  ponysay:
+    command: ./bin/ponysay
+
+parts:
+  ponysay:
+    source: https://github.com/erkin/ponysay.git
+    source-tag: 3.0.3
+    plugin: dump
+    stage-packages:
+    - python3
+    - coreutils
+    build-packages:
+    - gzip
+    - texinfo
+    override-pull: |
+      snapcraftctl pull
+      sed -i 's|/usr/share/ponysay/|$SNAP/share/ponysay/|g' $SNAPCRAFT_PART_SRC/src/ponysay.py
+      sed -i 's|/etc/|$SNAP_DATA/etc/|g' $SNAPCRAFT_PART_SRC/src/ponysay.py
+      sed -i 's|/var/cache/ponysay|$HOME/.cache/ponysay|g' $SNAPCRAFT_PART_SRC/src/kms.py
+    override-build: |
+      snapcraftctl build
+      ./setup.py --freedom=partial --prefix=$SNAPCRAFT_PART_INSTALL --without-shared-cache --sysconf-dir='' --without-pdf install
+    prime: [ -balloons, -completion, -dev, -extraponies, -extras, -extrattyponies,
+        -manuals, -ponies, -ponyquotes, -share/ucsmap, -src, -ttyponies, -dependency-test.sh, -ponysay.pdf, -setup.py ]
