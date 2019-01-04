@@ -2,23 +2,29 @@ name: ponysay
 version: '3.0.3'
 summary: cowsay reimplemention for ponies
 description: |
-  Ponysay displays an image of a My Little Pony pony saying a message provided by the user 
-  in a terminal, or a quote from the show My Little Pony: Friendship is Magic (MLP:FiM). 
-  Historically ponysay was a wrapper for cowsay, but has since version 2.1 become an 
-  independent reimplementation of cowsay.
+  Ponysay displays an image of a My Little Pony pony saying a message provided 
+  by the user in a terminal, or a quote from the show My Little Pony: 
+  Friendship is Magic (MLP:FiM). 
+  Historically ponysay was a wrapper for cowsay, but has since version 2.1 
+  become an independent reimplementation of cowsay.
 
 grade: stable
 confinement: strict
+base: core18
 
 apps:
   ponysay:
     command: ./bin/ponysay
+  ponythink:
+    command: ./bin/ponythink
 
 parts:
   ponysay:
     source: https://github.com/erkin/ponysay.git
     source-tag: 3.0.3
     plugin: dump
+#    build-attributes:
+#    - no-system-libraries
     stage-packages:
     - python3
     - coreutils
