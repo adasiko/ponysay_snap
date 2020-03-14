@@ -15,8 +15,12 @@ base: core18
 apps:
   ponysay:
     command: ./bin/ponysay
+    environment:
+      LANG: C.UTF-8
   ponythink:
     command: ./bin/ponythink
+    environment:
+      LANG: C.UTF-8
 
 parts:
   ponysay:
