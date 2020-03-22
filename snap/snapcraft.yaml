@@ -43,6 +43,6 @@ parts:
       sed -i 's|/var/cache/ponysay|$HOME/.cache/ponysay|g' $SNAPCRAFT_PART_SRC/src/kms.py
     override-build: |
       snapcraftctl build
-      ./setup.py --freedom=partial --prefix=$SNAPCRAFT_PART_INSTALL --without-shared-cache --sysconf-dir='' --without-pdf --without-ponysay-tool install
+      ./setup.py --freedom=partial --prefix=$SNAPCRAFT_PART_INSTALL --without-shared-cache --without-pdf --without-ponysay-tool install
     prime: [ -balloons, -completion, -dev, -extraponies, -extras, -extrattyponies,
         -manuals, -ponies, -ponyquotes, -share/ucsmap, -src, -ttyponies, -dependency-test.sh, -ponysay.pdf, -setup.py ]
