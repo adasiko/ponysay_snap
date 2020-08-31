@@ -10,7 +10,14 @@ description: |
 
 grade: stable
 confinement: strict
-base: core18
+base: core20
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
+  - build-on: ppc64el
+  - build-on: ppc64els390x
 
 apps:
   ponysay:
