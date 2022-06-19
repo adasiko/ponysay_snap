@@ -10,7 +10,7 @@ description: |
 
 grade: stable
 confinement: strict
-base: core20
+base: core22
 
 architectures:
   - build-on: amd64
@@ -43,15 +43,15 @@ parts:
     - gzip
     - texinfo
     override-pull: |
-      snapcraftctl pull
-      sed -i -n '1h; 1!H; ${ g; s/ For an extensive.* than described here.//p }' $SNAPCRAFT_PART_SRC/src/__main__.py
-      sed -i "s|encode('utf-8')|encode('utf-8', errors='surrogateescape')|g" $SNAPCRAFT_PART_SRC/src/common.py
-      sed -i "s|is not ','|!= ','|g" $SNAPCRAFT_PART_SRC/src/backend.py
-      sed -i 's|/usr/share/ponysay/|$SNAP/share/ponysay/|g' $SNAPCRAFT_PART_SRC/src/ponysay.py
-      sed -i 's|/etc/|$SNAP_DATA/etc/|g' $SNAPCRAFT_PART_SRC/src/ponysay.py
-      sed -i 's|/var/cache/ponysay|$HOME/.cache/ponysay|g' $SNAPCRAFT_PART_SRC/src/kms.py
+      craftctl default
+      sed -i -n '1h; 1!H; ${ g; s/ For an extensive.* than described here.//p }' $CRAFT_PART_SRC/src/__main__.py
+      sed -i "s|encode('utf-8')|encode('utf-8', errors='surrogateescape')|g" $CRAFT_PART_SRC/src/common.py
+      sed -i "s|is not ','|!= ','|g" $CRAFT_PART_SRC/src/backend.py
+      sed -i 's|/usr/share/ponysay/|$SNAP/share/ponysay/|g' $CRAFT_PART_SRC/src/ponysay.py
+      sed -i 's|/etc/|$SNAP_DATA/etc/|g' $CRAFT_PART_SRC/src/ponysay.py
+      sed -i 's|/var/cache/ponysay|$HOME/.cache/ponysay|g' $CRAFT_PART_SRC/src/kms.py
     override-build: |
-      snapcraftctl build
-      ./setup.py --freedom=partial --prefix=$SNAPCRAFT_PART_INSTALL --without-shared-cache --without-pdf --without-ponysay-tool install
+      craftctl default
+      ./setup.py --freedom=partial --prefix=$CRAFT_PART_INSTALL --without-shared-cache --without-pdf --without-ponysay-tool install
     prime: [ -balloons, -completion, -dev, -extraponies, -extras, -extrattyponies,
         -manuals, -ponies, -ponyquotes, -share/ucsmap, -src, -ttyponies, -dependency-test.sh, -ponysay.pdf, -setup.py ]
