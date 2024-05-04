@@ -1,0 +1,50 @@
+diff --git a/src/__main__.py b/src/__main__.py
+index 3b084e93..7baeb232 100755
+--- a/src/__main__.py
++++ b/src/__main__.py
+@@ -93,9 +93,7 @@ if __name__ == '__main__':
+                      usage       = usage,
+                      longdescription =
+ '''Ponysay displays an image of a pony saying some text provided by the user.
+-If \033[4mmessage\033[24m is not provided, it accepts standard input. For an extensive
+-documentation run `info ponysay`, or for just a little more help than this
+-run `man ponysay`. Ponysay has so much more to offer than described here.''')
++If \033[4mmessage\033[24m is not provided, it accepts standard input.''')
+     
+     opts.add_argumentless(['--quoters'])
+     opts.add_argumentless(['--onelist'])
+diff --git a/src/backend.py b/src/backend.py
+index 2cc539a5..82ff1496 100755
+--- a/src/backend.py
++++ b/src/backend.py
+@@ -291,7 +291,7 @@ class Backend():
+                         props = dollar[7:]
+                         if len(props) > 0:
+                             if ',' in props:
+-                                if props[0] is not ',':
++                                if props[0] != ',':
+                                     w = props[:props.index(',')]
+                                 h = int(props[props.index(',') + 1:])
+                             else:
+diff --git a/src/common.py b/src/common.py
+index b4e6f40b..84cf8051 100755
+--- a/src/common.py
++++ b/src/common.py
+@@ -53,7 +53,7 @@ def print(text = '', end = '\n'):
+     @param  text:str  The text to print (empty string is default)
+     @param  end:str   The appendix to the text to print (line breaking is default)
+     '''
+-    sys.stdout.buffer.write((str(text) + end).encode('utf-8'))
++    sys.stdout.buffer.write((str(text) + end).encode('utf-8', errors='surrogateescape'))
+ 
+ def printerr(text = '', end = '\n'):
+     '''
+@@ -62,7 +62,7 @@ def printerr(text = '', end = '\n'):
+     @param  text:str  The text to print (empty string is default)
+     @param  end:str   The appendix to the text to print (line breaking is default)
+     '''
+-    sys.stderr.buffer.write((str(text) + end).encode('utf-8'))
++    sys.stderr.buffer.write((str(text) + end).encode('utf-8', errors='surrogateescape'))
+ 
+ fd3 = None
+ def printinfo(text = '', end = '\n'):

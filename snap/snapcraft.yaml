@@ -34,8 +34,6 @@ parts:
     source: https://github.com/erkin/ponysay.git
     source-tag: 3.0.3
     plugin: dump
-#    build-attributes:
-#    - no-system-libraries
     stage-packages:
     - python3
     - coreutils
@@ -44,12 +42,10 @@ parts:
     - texinfo
     override-pull: |
       craftctl default
-      sed -i -n '1h; 1!H; ${ g; s/ For an extensive.* than described here.//p }' $CRAFT_PART_SRC/src/__main__.py
-      sed -i "s|encode('utf-8')|encode('utf-8', errors='surrogateescape')|g" $CRAFT_PART_SRC/src/common.py
-      sed -i "s|is not ','|!= ','|g" $CRAFT_PART_SRC/src/backend.py
-      sed -i 's|/usr/share/ponysay/|$SNAP/share/ponysay/|g' $CRAFT_PART_SRC/src/ponysay.py
-      sed -i 's|/etc/|$SNAP_DATA/etc/|g' $CRAFT_PART_SRC/src/ponysay.py
-      sed -i 's|/var/cache/ponysay|$HOME/.cache/ponysay|g' $CRAFT_PART_SRC/src/kms.py
+        for file in ${CRAFT_PROJECT_DIR}/snap/local/*.patch
+        do
+          patch -i $file -p 1
+        done
     override-build: |
       craftctl default
       ./setup.py --freedom=partial --prefix=$CRAFT_PART_INSTALL --without-shared-cache --without-pdf --without-ponysay-tool install

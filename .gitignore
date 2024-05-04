@@ -2,6 +2,4 @@
 !snap
 !.gitignore
 !icon.png
-snap/*
-!snap/snapcraft.yaml
-
+!snap/*

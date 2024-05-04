@@ -1,0 +1,35 @@
+diff --git a/src/kms.py b/src/kms.py
+index 745bfa90..23927ee8 100755
+--- a/src/kms.py
++++ b/src/kms.py
+@@ -105,7 +105,7 @@ class KMS():
+         @param   home:str                        The user's home directory
+         @return  (cachedir, shared):(str, bool)  The cache directory and whether it is user shared
+         '''
+-        cachedir = '/var/cache/ponysay'
++        cachedir = '$HOME/.cache/ponysay'
+         shared = True
+         if not os.path.isdir(cachedir):
+             cachedir = home + '/.cache/ponysay'
+diff --git a/src/ponysay.py b/src/ponysay.py
+index 17e02f5a..50887515 100755
+--- a/src/ponysay.py
++++ b/src/ponysay.py
+@@ -57,7 +57,7 @@ class Ponysay():
+         
+         
+         ## Load extension and configurations via ponysayrc
+-        for file in ('$XDG_CONFIG_HOME/ponysay/ponysayrc', '$HOME/.config/ponysay/ponysayrc', '$HOME/.ponysayrc', '/etc/ponysayrc'):
++        for file in ('$XDG_CONFIG_HOME/ponysay/ponysayrc', '$HOME/.config/ponysay/ponysayrc', '$HOME/.ponysayrc', '$SNAP_DATA/etc/ponysayrc'):
+             file = self.__parseFile(file)
+             if (file is not None) and os.path.exists(file):
+                 with open(file, 'rb') as ponysayrc:
+@@ -188,7 +188,7 @@ class Ponysay():
+         return [cat(cls.__parseFile(item), file) for item in [
+                 '$XDG_DATA_HOME/ponysay/',
+                 '$HOME/.local/share/ponysay/',
+-                '/usr/share/ponysay/'
++                '$SNAP/share/ponysay/'
+                ]]
+     
+     
