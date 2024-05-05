@@ -10,14 +10,14 @@ description: |
 
 grade: stable
 confinement: strict
-base: core22
+base: core24
 
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
-  - build-on: ppc64el
-  - build-on: s390x
+platforms:
+  amd64:
+  arm64:
+  armhf:
+  ppc64el:
+  s390x:
 
 apps:
   ponysay:
