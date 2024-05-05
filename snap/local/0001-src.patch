@@ -26,6 +26,19 @@ index 2cc539a5..82ff1496 100755
                                      w = props[:props.index(',')]
                                  h = int(props[props.index(',') + 1:])
                              else:
+diff --git a/src/balloon.py b/src/balloon.py
+index 0f1909e4..a938ece0 100755
+--- a/src/balloon.py
++++ b/src/balloon.py
+@@ -40,7 +40,7 @@ class Balloon():
+     '''
+     
+     def __init__(self, link, linkmirror, linkcross, ww, ee, nw, nnw, n, nne, ne, nee, e, see, se, sse, s, ssw, sw, sww, w, nww):
+-        '''
++        r'''
+         Constructor
+         
+         @param  link:str        The \-directional balloon line character
 diff --git a/src/common.py b/src/common.py
 index b4e6f40b..84cf8051 100755
 --- a/src/common.py
