@@ -10,7 +10,7 @@ description: |
 
 grade: stable
 confinement: strict
-base: core24
+base: core26
 
 platforms:
   amd64:
@@ -30,16 +30,23 @@ apps:
       LANG: C.UTF-8
 
 parts:
+  python-runtime:
+    plugin: nil
+    stage-packages:
+      - libpython3.14-minimal
+      - libpython3.14-stdlib
+      - python3-minimal
+      - python3.14-minimal
   ponysay:
+    after: [python-runtime]
     source: https://github.com/erkin/ponysay.git
     source-tag: 3.0.3
     plugin: dump
     stage-packages:
-    - python3
-    - coreutils
+      - coreutils
     build-packages:
-    - gzip
-    - texinfo
+      - gzip
+      - texinfo
     override-pull: |
       craftctl default
         for file in ${CRAFT_PROJECT_DIR}/snap/local/*.patch
